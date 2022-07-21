@@ -5,6 +5,7 @@ The python code is wrapped in a Flask application that will keep the web server 
 
 The only route available is /book with the parameters url(of the book in goodreads) and depth(how many layers of recommended should it go down into), URL encoded.
 *****More to follow.
+
 The output of the program is in the form of a JSON string containing book entries. These are the goodreads recommended books of the initial book that was provided with the selected depth.
 
 Example curl request:
