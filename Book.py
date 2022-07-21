@@ -48,6 +48,8 @@ class Book():
         return iter(
             [self.URL, self.BookID, self.Depth, self.Title, self.NoInSeries, self.Series, self.Author, self.Status,
              self.Rating, self.NoRaters, self.NoReviewers, self.Genres, self.Synopsys])
+    def getLog(self):
+        return self.log.getLog()
     def dictionaryForJson(self):
         return {
             "Url": self.URL,
@@ -131,8 +133,6 @@ class Book():
                                                                                        class_='actionLinkLite bookPageGenreLink')
             for cont in shelvesContainer:
                 self.Genres.append(cont.text)
-
-
         except:
             e = sys.exc_info()[0]
             self.log.log("Genres could not be read for Book " + self.Title + ". Error:" + str(e) + "\n")

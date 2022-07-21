@@ -37,26 +37,21 @@ def get_book_recommendations():
                 if not i in VisitedLinks:
                     #print("At depth " + str(index + 1) + " current Book " + str(enum) + " of " + str(len(ToVisit)) + "URL:"+i)
                     try:
+                        log = Log()
                         new = Book(i, index, log, browser)
-                        message = "At depth " + str(index + 1) + " current Book is " + str(
-                            new.Title) + " number " + str(enum + 1) + " of " + str(
-                            len(ToVisit)) + ". Continuing to next Book...\n"
-                        log.log(message)
                         List.append(new)
                         VisitedLinks.add(i)
                         NewList.extend(new.RecommendedLinks)
                     except:
                         e = sys.exc_info()[0]
-                        message = "At depth " + str(index) + " Book number " + str(enum) + " of " + str(
-                            len(ToVisit)) + " abandoned due to problems with HTML. Error was " + str(e) + "\n"
-                        log.log(message)
             index += 1
             ToVisit = NewList
-    json_string=""
+    json_string="["
     for book in List:
         dictionary=book.dictionaryForJson()
-        dictionary["log"]=log.getLog()
-        json_string +=jsonpickle.encode(dictionary)
+        dictionary["log"]=book.getLog()
+        json_string +=jsonpickle.encode(dictionary)+","
+    json_string+="]"
     return (json_string)
 
 #if __name__ == '__main__':
