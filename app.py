@@ -71,10 +71,11 @@ def get_book_recommendations():
         dictionary = book.dictionaryForJson()
         dictionary["log"] = book.getLog()
         json_string += jsonpickle.encode(dictionary)+","
+    json_string = json_string[:-1]
     json_string += "]"
     return json_string
 
 #FOR DEBUGGING PURPOSES
 if __name__ == '__main__':
     # run app in debug mode on port 5000
-    app.run(port=5000)
+    app.run(port=8000)

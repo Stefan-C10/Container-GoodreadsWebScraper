@@ -52,15 +52,15 @@ class Book():
         return self.log.getLog()
     def dictionaryForJson(self):
         return {
-            "Url": self.URL,
+            "URL": self.URL,
             "BookId": self.BookID,
             "Title": self.Title,
-            "NumberInSeries": self.NoInSeries,
+            "Number in Series": self.NoInSeries,
             "Series": self.Series,
             "Authors": self.Author,
             "Rating": self.Rating,
-            "NumberOfRaters": self.NoRaters,
-            "NumberofReviewers": self.NoReviewers,
+            "Number of Raters": self.NoRaters,
+            "Number of Reviewers": self.NoReviewers,
             "Genres": self.Genres,
             "Synopsis": self.Synopsys
         }
@@ -105,9 +105,9 @@ class Book():
         try:
             self.Rating = float(
                 re.sub("[a-zA-Z]+", "", cleanText(self.soup.find("span", itemprop="ratingValue").get_text())))
-            self.NoRaters = int(re.sub("[a-zA-Z,]+", "", cleanText(self.soup.find(itemprop="ratingCount").get_text())))
+            self.NoRaters = int(re.sub("[a-zA-Z,]+", "", cleanText(self.soup.find(itemprop="ratingCount").attrs["content"])))
             self.NoReviewers = int(
-                re.sub("[a-zA-Z,]+", "", cleanText(self.soup.find(itemprop="reviewCount").get_text())))
+                re.sub("[a-zA-Z,]+", "", cleanText(self.soup.find(itemprop="reviewCount").attrs["content"])))
         except:
             e = sys.exc_info()[0]
             self.log.log(
